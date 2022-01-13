@@ -8,6 +8,6 @@ provider "azurerm" {
   features {}
 }
 resource "azurerm_resource_group" "rg" {
-  name     = "resourcegroup-test-tbd"
+  name     = "resourcegroup-test-tbd-1"
   location = "eastus2"
 }
