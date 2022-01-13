@@ -5,26 +5,25 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  subscription: Visual Studio Enterprise(17b12858-3960-4e6f-a663-a06fdae23428)
-  resourceGroup: resourcegroup-tfstate
-  storageAccount: terraformtfstateskip
+  subscription: Pay-As-You-Go(3da35241-46fa-4417-ac77-d94d3b24f8c2)
+  resourceGroup: resourcegroup-terraformstate 
+  storageAccount: terraformstatesiac
   container: tfstate
   tfstateFile: terraform.tfstate
   anyTfChanges: false
 
 steps:
-
 - task: TerraformInstaller@0
-  displayName: install Terraform v0.12.28
+  displayName: install latest terraform
   inputs:
-    terraformVersion: '0.12.28'
+    terraformVersion: 'latest'
 
 - task: TerraformTaskV1@0
   displayName: terraform init
   inputs:
     provider: 'azurerm'
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/skip-step'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/tfcode'
     backendServiceArm: '$(subscription)'
     backendAzureRmResourceGroupName: '$(resourceGroup)'
     backendAzureRmStorageAccountName: '$(storageAccount)'
@@ -36,7 +35,7 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/skip-step'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/tfcode'
     commandOptions: '-out=tfplan'
     # commandOptions: '-detailed-exitcode -out=tfplan'
     environmentServiceNameAzureRM: '$(subscription)'
@@ -44,7 +43,7 @@ steps:
 - task: PowerShell@2
   displayName: detect any terraform change
   inputs:
-    workingDirectory: '$(System.DefaultWorkingDirectory)/skip-step'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/tfcode'
     targetType: 'inline'
     script: |
       # Write-Host "LASTEXITCODE : $LASTEXITCODE"
@@ -67,6 +66,6 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/skip-step'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/tfcode'
     commandOptions: 'tfplan'
     environmentServiceNameAzureRM: '$(subscription)'
