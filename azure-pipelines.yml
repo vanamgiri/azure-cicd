@@ -13,6 +13,7 @@ variables:
   anyTfChanges: false
 
 steps:
+
 - task: TerraformInstaller@0
   displayName: install latest terraform
   inputs:
@@ -30,7 +31,7 @@ steps:
     backendAzureRmContainerName: '$(container)'
     backendAzureRmKey: '$(tfstateFile)'
 
-- task: TerraformTaskV1@0
+- task: TerraformTaskV1@1
   displayName: terraform plan -out=tfplan
   inputs:
     provider: 'azurerm'
