@@ -4,7 +4,7 @@ terraform {
 }
 
 provider "azurerm" {
-  # The "feature" block is required for AzureRM provider 2.x.
+  # The "feature" block is required for AzureRM provider 2.x.x
   features {}
 }
 resource "azurerm_resource_group" "rg" {
