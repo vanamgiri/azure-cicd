@@ -23,7 +23,7 @@ resource "azurerm_virtual_network" "app_network" {
   subnet {
     name           = "privatesubnet2"
     address_prefix = "10.0.2.0/24"
-    security_group = azurerm_network_security_group.example.id
+    
   }
 
   tags = {
