@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "rg" {
 
 module "vnet" {
   source              = "Azure/vnet/azurerm"
-  resource_group_name = resourcegroup-test-tbd-5.rg.name
+  resource_group_name = azurerm_resource_group.rg.name
   address_space       = ["10.0.0.0/24"]
   subnet_prefixes     = ["10.0.0.0/25", "10.0.0.128/25"]
   subnet_names        = ["subnet1-pvt", "subnet2-pvt"]
