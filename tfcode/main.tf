@@ -9,19 +9,19 @@ resource "azurerm_resource_group" "rg" {
   location = "eastus2"
 }
 
-resource "azurerm_management_group" "ParentMG" {
-  display_name = "ParentGroup"
+# resource "azurerm_management_group" "ParentMG" {
+#   display_name = "ParentGroup"
 
-  subscription_ids = [ "${var.subscription_id}"]
-}
+#   subscription_ids = [ "${var.subscription_id}"]
+# }
 
-resource "azurerm_management_group" "ChildMG" {
-  display_name               = "ChildGroup"
-  parent_management_group_id = azurerm_management_group.ParentMG.id
+# resource "azurerm_management_group" "ChildMG" {
+#   display_name               = "ChildGroup"
+#   parent_management_group_id = azurerm_management_group.ParentMG.id
 
-  subscription_ids = [ "${var.subscription_id}"]
-  # other subscription IDs can go here
-}
+#   subscription_ids = [ "${var.subscription_id}"]
+#   # other subscription IDs can go here
+# }
 
 
 resource "azurerm_virtual_network" "app_network" {
