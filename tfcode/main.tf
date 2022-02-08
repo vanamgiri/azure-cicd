@@ -12,18 +12,14 @@ resource "azurerm_resource_group" "rg" {
 resource "azurerm_management_group" "ParentMG" {
   display_name = "ParentGroup"
 
-  subscription_ids = [
-    data.azurerm_subscription.current.subscription_id,
-  ]
+  subscription_ids = [ "${var.subscription_id}"]
 }
 
 resource "azurerm_management_group" "ChildMG" {
   display_name               = "ChildGroup"
   parent_management_group_id = azurerm_management_group.ParentMG.id
 
-  subscription_ids = [
-    data.azurerm_subscription.current.subscription_id,
-  ]
+  subscription_ids = [ "${var.subscription_id}"]
   # other subscription IDs can go here
 }
 
