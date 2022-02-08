@@ -26,5 +26,5 @@ module "vnet" {
     costcenter  = "it"
   }
 
-  depends_on = [resourcegroup-test-tbd-5.rg]
+  depends_on = [azurerm_resource_group.rg]
 }
