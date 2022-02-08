@@ -9,22 +9,24 @@ resource "azurerm_resource_group" "rg" {
 }
 
 
-module "vnet" {
-  source              = "Azure/vnet/azurerm"
+resource "azurerm_virtual_network" "app_network" {
+  name                = "app-network"
+  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  address_space       = ["10.0.0.0/24"]
-  subnet_prefixes     = ["10.0.0.0/25", "10.0.0.128/25"]
-  subnet_names        = ["subnet1-pvt", "subnet2-pvt"]
+  address_space       = ["10.0.0.0/16"]
 
-  subnet_service_endpoints = {
-    subnet2 = ["Microsoft.Storage", "Microsoft.Sql"],
-    subnet3 = ["Microsoft.AzureActiveDirectory"]
+  subnet {
+    name           = "privatesubnet1"
+    address_prefix = "10.0.1.0/24"
+  }
+
+  subnet {
+    name           = "privatesubnet2"
+    address_prefix = "10.0.2.0/24"
+    security_group = azurerm_network_security_group.example.id
   }
 
   tags = {
-    environment = "dev"
-    costcenter  = "it"
+    environment = "Production"
   }
-
-  depends_on = [azurerm_resource_group.rg]
 }

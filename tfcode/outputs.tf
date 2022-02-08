@@ -1,25 +1,25 @@
 
 output "vnet_id" {
   description = "The id of the newly created vNet"
-  value       = vnet.vnet.id
+  value       = azurerm_virtual_network.vnet.id
 }
 
 output "vnet_name" {
   description = "The name of the newly created vNet"
-  value       = vnet.vnet.name
+  value       = azurerm_virtual_network.vnet.name
 }
 
 output "vnet_location" {
   description = "The location of the newly created vNet"
-  value       = vnet.vnet.location
+  value       = azurerm_virtual_network.vnet.location
 }
 
 output "vnet_address_space" {
   description = "The address space of the newly created vNet"
-  value       = vnet.vnet.address_space
+  value       = azurerm_virtual_network.vnet.address_space
 }
 
 output "vnet_subnets" {
   description = "The ids of subnets created inside the newly created vNet"
-  value       = vnet.subnet.*.id
+  value       = azurerm_virtual_network.subnet.*.id
 }
